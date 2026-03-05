@@ -5,15 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ReVision — 軟體介紹與使用教學</title>
 <style>
-  :root { --accent: #1a7a5a; --bg: #f8f9fa; --card: #fff; --text: #222; --muted: #555; --border: #e0e0e0; --warn: #e65100; }
+  :root { --accent: #1e3a5f; --accent-light: #2d6cb5; --bg: #f6f8fb; --card: #fff; --text: #1a1a2e; --muted: #4a5568; --border: #d8dee8; --warn: #e65100; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: -apple-system, "Noto Sans TC", "PingFang TC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; }
 
-  .hero { background: linear-gradient(135deg, #0d3b2e 0%, #1a7a5a 50%, #2ba87a 100%); color: #fff; text-align: center; padding: 80px 20px 60px; }
+  .hero { background: linear-gradient(135deg, #0a1628 0%, #142d4f 35%, #1e3a5f 60%, #2a5f8f 100%); color: #fff; text-align: center; padding: 80px 20px 60px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(100,160,255,0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(60,120,220,0.08) 0%, transparent 50%); }
+  .hero > * { position: relative; z-index: 1; }
+  .hero .logo { width: 88px; height: 88px; border-radius: 20px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
   .hero h1 { font-size: 3em; font-weight: 700; letter-spacing: 2px; }
   .hero p { font-size: 1.25em; opacity: 0.92; max-width: 720px; margin: 12px auto 0; }
   .hero .badges { margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .hero .badge { background: rgba(255,255,255,0.18); padding: 6px 16px; border-radius: 20px; font-size: 0.9em; }
+  .hero .badge { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); padding: 6px 16px; border-radius: 20px; font-size: 0.9em; border: 1px solid rgba(255,255,255,0.15); }
 
   .container { max-width: 920px; margin: 0 auto; padding: 0 20px; }
   .section { padding: 56px 0; }
@@ -33,7 +36,7 @@
   .step p { color: var(--muted); margin-bottom: 10px; }
   .step img { width: 100%; border-radius: 8px; margin-top: 12px; border: 1px solid var(--border); }
 
-  .hl { background: #e8f5e9; border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0; }
+  .hl { background: #e8f0fa; border-left: 4px solid var(--accent-light); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0; }
   .hl strong { color: var(--accent); }
   .warn { background: #fff3e0; border-left: 4px solid var(--warn); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0; }
   .warn strong { color: var(--warn); }
@@ -47,7 +50,7 @@
 
   .tg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
   .ti { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
-  .ti .bl { background: #333; color: #fff; padding: 3px 10px; border-radius: 5px; font-size: 0.82em; white-space: nowrap; font-family: monospace; }
+  .ti .bl { background: var(--accent); color: #fff; padding: 3px 10px; border-radius: 5px; font-size: 0.82em; white-space: nowrap; font-family: monospace; }
   .ti span { color: var(--muted); font-size: 0.9em; }
 
   kbd { background: #eee; border: 1px solid #ccc; border-radius: 4px; padding: 2px 7px; font-family: monospace; font-size: 0.88em; }
@@ -57,7 +60,8 @@
   .footer { text-align: center; padding: 36px 20px; color: var(--muted); font-size: 0.88em; border-top: 1px solid var(--border); }
   .dl-btns { text-align: center; margin-top: 28px; }
   .dl-btns a { display: inline-block; padding: 13px 32px; border-radius: 10px; text-decoration: none; font-size: 1.05em; font-weight: 600; margin: 0 6px; }
-  .dl-btns .primary { background: var(--accent); color: #fff; }
+  .dl-btns .primary { background: var(--accent); color: #fff; transition: background 0.2s; }
+  .dl-btns .primary:hover { background: var(--accent-light); }
   .dl-btns .secondary { background: #333; color: #fff; }
 
   @media (max-width: 640px) { .features, .tg { grid-template-columns: 1fr; } .hero h1 { font-size: 2em; } }
@@ -67,6 +71,7 @@
 
 <!-- ===== HERO ===== -->
 <div class="hero">
+  <img src="screenshots/logo.png" class="logo" alt="ReVision">
   <h1>ReVision</h1>
   <p>PDF 與圖片轉可編輯簡報——AI 無痕修補，人工精準把關</p>
   <div class="badges">
@@ -316,7 +321,7 @@
     <div class="fc"><div class="icon">🎓</div><h3>教師</h3><p>將舊講義 PDF 轉為可編輯簡報，快速更新教材內容。</p></div>
     <div class="fc"><div class="icon">📚</div><h3>學生</h3><p>課堂拍照或截圖，直接轉為筆記簡報，搭配 NotebookLM 複習。</p></div>
     <div class="fc"><div class="icon">💼</div><h3>商務人士</h3><p>收到的 PDF 提案需要修改，抽取頁面重新組合成新簡報。</p></div>
-    <div class="fc"><div class="icon">🎨</div><h3>設計師</h3><p>從現有素材快速提取乾淨背景與去背物件。</p></div>
+    <div class="fc"><div class="icon">🎨</div><h3>設計師</h3><p>從現有素材快速提取乾淨背景，取得可編輯的文字與版面。</p></div>
   </div>
 </div>
 
