@@ -64,6 +64,11 @@
   .dl-btns .primary:hover { background: var(--accent-light); }
   .dl-btns .secondary { background: #333; color: #fff; }
 
+  .lang-bar { position: absolute; top: 16px; right: 20px; z-index: 10; display: flex; gap: 4px; }
+  .lang-bar a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.85em; padding: 4px 10px; border-radius: 6px; transition: all 0.2s; }
+  .lang-bar a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  .lang-bar a.active { color: #fff; background: rgba(255,255,255,0.18); font-weight: 600; }
+
   @media (max-width: 640px) { .features, .tg { grid-template-columns: 1fr; } .hero h1 { font-size: 2em; } }
 </style>
 </head>
@@ -71,6 +76,7 @@
 
 <!-- ===== HERO ===== -->
 <div class="hero">
+  <div class="lang-bar"><a href="index.html" class="active">繁體中文</a><a href="index-en.html">English</a></div>
   <img src="screenshots/logo.png" class="logo" alt="ReVision">
   <h1>ReVision</h1>
   <p>PDF 與圖片轉可編輯簡報——AI 無痕修補，人工精準把關</p>

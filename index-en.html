@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReVision — Tutorial & Features</title>
+<style>
+  :root { --accent: #1e3a5f; --accent-light: #2d6cb5; --bg: #f6f8fb; --card: #fff; --text: #1a1a2e; --muted: #4a5568; --border: #d8dee8; --warn: #e65100; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "Noto Sans TC", "PingFang TC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; }
+
+  .hero { background: linear-gradient(135deg, #0a1628 0%, #142d4f 35%, #1e3a5f 60%, #2a5f8f 100%); color: #fff; text-align: center; padding: 80px 20px 60px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(100,160,255,0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(60,120,220,0.08) 0%, transparent 50%); }
+  .hero > * { position: relative; z-index: 1; }
+  .hero .logo { width: 88px; height: 88px; border-radius: 20px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+  .hero h1 { font-size: 3em; font-weight: 700; letter-spacing: 2px; }
+  .hero p { font-size: 1.25em; opacity: 0.92; max-width: 720px; margin: 12px auto 0; }
+  .hero .badges { margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero .badge { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); padding: 6px 16px; border-radius: 20px; font-size: 0.9em; border: 1px solid rgba(255,255,255,0.15); }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+  .section { padding: 56px 0; }
+  .section h2 { font-size: 1.7em; color: var(--accent); margin-bottom: 6px; }
+  .section .sub { color: var(--muted); font-size: 1.05em; margin-bottom: 28px; }
+
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .fc { background: var(--card); border-radius: 12px; padding: 22px; border: 1px solid var(--border); }
+  .fc .icon { font-size: 1.8em; margin-bottom: 6px; }
+  .fc h3 { font-size: 1.1em; margin-bottom: 4px; }
+  .fc p { color: var(--muted); font-size: 0.93em; }
+
+  .step { background: var(--card); border-radius: 12px; padding: 26px; margin-bottom: 22px; border: 1px solid var(--border); }
+  .sh { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .sn { background: var(--accent); color: #fff; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.05em; flex-shrink: 0; }
+  .sh h3 { font-size: 1.15em; }
+  .step p { color: var(--muted); margin-bottom: 10px; }
+  .step img { width: 100%; border-radius: 8px; margin-top: 12px; border: 1px solid var(--border); }
+
+  .hl { background: #e8f0fa; border-left: 4px solid var(--accent-light); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0; }
+  .hl strong { color: var(--accent); }
+  .warn { background: #fff3e0; border-left: 4px solid var(--warn); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0; }
+  .warn strong { color: var(--warn); }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.95em; }
+  th { background: var(--accent); color: #fff; }
+  tr:nth-child(even) { background: #f5f5f5; }
+  .yes { color: #2e7d32; font-weight: 700; }
+  .no { color: #c62828; }
+
+  .tg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .ti { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+  .ti .bl { background: var(--accent); color: #fff; padding: 3px 10px; border-radius: 5px; font-size: 0.82em; white-space: nowrap; font-family: monospace; }
+  .ti span { color: var(--muted); font-size: 0.9em; }
+
+  kbd { background: #eee; border: 1px solid #ccc; border-radius: 4px; padding: 2px 7px; font-family: monospace; font-size: 0.88em; }
+
+  .kb-table td:first-child { white-space: nowrap; }
+
+  .footer { text-align: center; padding: 36px 20px; color: var(--muted); font-size: 0.88em; border-top: 1px solid var(--border); }
+  .dl-btns { text-align: center; margin-top: 28px; }
+  .dl-btns a { display: inline-block; padding: 13px 32px; border-radius: 10px; text-decoration: none; font-size: 1.05em; font-weight: 600; margin: 0 6px; }
+  .dl-btns .primary { background: var(--accent); color: #fff; transition: background 0.2s; }
+  .dl-btns .primary:hover { background: var(--accent-light); }
+  .dl-btns .secondary { background: #333; color: #fff; }
+
+  .lang-bar { position: absolute; top: 16px; right: 20px; z-index: 10; display: flex; gap: 4px; }
+  .lang-bar a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.85em; padding: 4px 10px; border-radius: 6px; transition: all 0.2s; }
+  .lang-bar a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+  .lang-bar a.active { color: #fff; background: rgba(255,255,255,0.18); font-weight: 600; }
+
+  @media (max-width: 640px) { .features, .tg { grid-template-columns: 1fr; } .hero h1 { font-size: 2em; } }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="lang-bar"><a href="index.html">繁體中文</a><a href="index-en.html" class="active">English</a></div>
+  <img src="screenshots/logo.png" class="logo" alt="ReVision">
+  <h1>ReVision</h1>
+  <p>Convert PDF & images to editable presentations — AI-powered seamless repair, human-guided precision</p>
+  <div class="badges">
+    <span class="badge">🖥 macOS Native</span>
+    <span class="badge">🔒 Fully Offline</span>
+    <span class="badge">🧠 Deep Learning Repair</span>
+    <span class="badge">✋ Manual Control</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== Why ReVision ===== -->
+<div class="section">
+  <h2>Why ReVision?</h2>
+  <p class="sub">Most conversion tools give you one-click export with no way to fix mistakes.<br>ReVision is different — after AI processes your files, you can review and manually correct every page.</p>
+  <div class="features">
+    <div class="fc"><div class="icon">🧠</div><h3>Industry-Leading AI Background Repair</h3><p>Other tools can only handle solid-color backgrounds. ReVision restores backgrounds seamlessly, even when text overlaps photos or charts.</p></div>
+    <div class="fc"><div class="icon">✋</div><h3>Human-Guided Precision</h3><p>AI not perfect? Mark, erase, fine-tune — every detail is under your control before export.</p></div>
+    <div class="fc"><div class="icon">📑</div><h3>Multi-File Integration & Page Management</h3><p>Import multiple PDFs and images, drag to reorder, delete pages, append files — combine into one presentation.</p></div>
+    <div class="fc"><div class="icon">🔒</div><h3>Privacy First</h3><p>OCR and AI processing run entirely on-device. Confidential files are never uploaded to the cloud.</p></div>
+    <div class="fc"><div class="icon">🤖</div><h3>Best Companion for NotebookLM</h3><p>Convert scanned PDFs to PPTX with real text, enabling AI tools to fully understand every page.</p></div>
+  </div>
+</div>
+
+<!-- ===== Comparison Table ===== -->
+<div class="section">
+  <h2>Comparison with Other Tools</h2>
+  <table>
+    <tr><th>Feature</th><th>ReVision</th><th>Typical Tools</th></tr>
+    <tr><td>Complex background repair (photos, charts)</td><td class="yes">✅ Deep learning engine</td><td class="no">❌ Solid backgrounds only</td></tr>
+    <tr><td>Manual editing</td><td class="yes">✅ Mark / Erase / Fine-tune</td><td class="no">❌ One-click export</td></tr>
+    <tr><td>Font size / color / bold detection</td><td class="yes">✅ Precise detection</td><td class="no">⚠️ Partial support</td></tr>
+    <tr><td>Multi-file / page management</td><td class="yes">✅ Drag to reorder, delete, append</td><td class="no">❌ Single file only</td></tr>
+    <tr><td>Privacy protection</td><td class="yes">✅ Fully on-device</td><td class="no">⚠️ Often requires cloud upload</td></tr>
+  </table>
+</div>
+
+<!-- ===== Interface Overview ===== -->
+<div class="section">
+  <h2>Interface Overview</h2>
+  <p class="sub">Understand ReVision's interface at a glance</p>
+  <img src="screenshots/step1_import.png" style="width:100%; border-radius:10px; border:1px solid var(--border);">
+  <p style="margin-top:14px;">Toolbar overview:</p>
+  <img src="screenshots/topbar_full.png" style="width:100%; border-radius:8px; border:1px solid var(--border);">
+  <div class="tg" style="margin-top: 20px;">
+    <div class="ti"><div class="bl">A</div><span><strong>Left Panel</strong> — Page thumbnails, drag to reorder</span></div>
+    <div class="ti"><div class="bl">B</div><span><strong>Toolbar</strong> — Mark / Erase / Zoom / Magnifier etc.</span></div>
+    <div class="ti"><div class="bl">C</div><span><strong>Editing Canvas</strong> — Main workspace, green = text mask</span></div>
+    <div class="ti"><div class="bl">D</div><span><strong>Export PPTX</strong> — Top-right, one-click export</span></div>
+  </div>
+</div>
+
+<!-- ===== Tutorial ===== -->
+<div class="section">
+  <h2>Tutorial</h2>
+  <p class="sub">Five steps from PDF to perfect presentation</p>
+
+  <!-- Step 1 -->
+  <div class="step">
+    <div class="sh"><div class="sn">1</div><h3>Import Files</h3></div>
+    <p>Click <strong>+ Files</strong> in the top-left to select PDF or image files. Supports selecting multiple files at once.</p>
+    <p>You can also right-click any PDF or image in Finder → <strong>"Open With" → ReVision</strong> to import directly.</p>
+    <div class="hl"><strong>💡 Tip:</strong> After importing, clicking <strong>+ Files</strong> again appends to existing pages, combining multiple sources.</div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step">
+    <div class="sh"><div class="sn">2</div><h3>Auto Text Recognition</h3></div>
+    <p>After import, ReVision automatically uses macOS native OCR to detect all text, highlighted with <strong style="color:#4caf50;">green masks</strong>.</p>
+    <p>Green areas will have text removed, backgrounds AI-repaired, then restored as editable text boxes.</p>
+    <img src="screenshots/step2_mask.png">
+    <p style="margin-top:14px;">Zoomed in — the green rectangles are the text areas detected by OCR:</p>
+    <img src="screenshots/mask_detail.png">
+    <div class="warn"><strong>⚠️ Warning:</strong> Text in tables and charts will also be detected. Use the "Erase" tool to remove masks from areas you want to keep.</div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step">
+    <div class="sh"><div class="sn">3</div><h3>Manually Adjust Masks</h3></div>
+    <p>This is ReVision's <strong>core advantage</strong> — when AI detection isn't perfect, you can directly make manual corrections:</p>
+    <img src="screenshots/step3_toolbar.png">
+    <div class="tg">
+      <div class="ti"><div class="bl">Mark</div><span>Select additional text areas to remove (add green mask)</span></div>
+      <div class="ti"><div class="bl">Erase</div><span>Remove masks from areas that should be kept</span></div>
+      <div class="ti"><div class="bl">+</div><span>Zoom in (or scroll up)</span></div>
+      <div class="ti"><div class="bl">−</div><span>Zoom out (or scroll down)</span></div>
+      <div class="ti"><div class="bl">Fit</div><span>Auto-fit to window size</span></div>
+      <div class="ti"><div class="bl">Magnifier</div><span>Real-time magnification around cursor</span></div>
+      <div class="ti"><div class="bl">Undo</div><span>Undo last operation</span></div>
+      <div class="ti"><div class="bl">Reset</div><span>Return to initial auto-detection state</span></div>
+    </div>
+    <div class="hl"><strong>💡 Tip:</strong> Press <kbd>E</kbd> to quickly toggle between Mark and Erase modes.</div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step">
+    <div class="sh"><div class="sn">4</div><h3>Manage Pages</h3></div>
+    <p>The left panel is your page management area:</p>
+    <img src="screenshots/step4_pages.png" style="max-width: 200px;">
+    <ul style="color: var(--muted); margin: 12px 0 8px 20px;">
+      <li><strong>Click thumbnail</strong> — switch to that page</li>
+      <li><strong>Drag thumbnail</strong> — reorder pages</li>
+      <li><strong>Right-click thumbnail</strong> — show menu (delete page)</li>
+      <li><strong>+ Files</strong> — append more PDFs or images</li>
+      <li><strong>Close Files</strong> — clear all and start over</li>
+    </ul>
+    <div class="hl"><strong>💡 Tip:</strong> Use <kbd>↑</kbd> <kbd>↓</kbd> or <kbd>←</kbd> <kbd>→</kbd> arrow keys to quickly switch pages.</div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="step">
+    <div class="sh"><div class="sn">5</div><h3>Export PPTX</h3></div>
+    <p>Once satisfied with every page, click <strong>Export PPTX</strong> in the top-right. ReVision processes each page:</p>
+    <ul style="color: var(--muted); margin: 8px 0 8px 20px;">
+      <li>Render at 200 DPI high quality</li>
+      <li>AI smart background repair (auto-selects best strategy)</li>
+      <li>Precisely detect font size, color, bold</li>
+      <li>Generate editable text boxes</li>
+      <li>Output standard .pptx file (opens in PowerPoint / Keynote / Google Slides)</li>
+    </ul>
+    <div class="warn"><strong>⚠️ Warning:</strong> Complex background (photo pages) AI repair takes longer (~10 sec/page). Please be patient.</div>
+  </div>
+</div>
+
+<!-- ===== Keyboard Shortcuts ===== -->
+<div class="section">
+  <h2>⌨️ Keyboard Shortcuts</h2>
+  <p class="sub">Master shortcuts to accelerate your workflow</p>
+
+  <h3 style="margin-bottom: 8px;">Tool Switching</h3>
+  <table class="kb-table">
+    <tr><th>Shortcut</th><th>Function</th></tr>
+    <tr><td><kbd>E</kbd></td><td>Toggle Mark ↔ Erase mode</td></tr>
+    <tr><td><kbd>W</kbd></td><td>Toggle Rectangle ↔ Brush mode</td></tr>
+    <tr><td><kbd>Z</kbd></td><td>Toggle Magnifier on / off</td></tr>
+    <tr><td><kbd>C</kbd></td><td>Cycle mask color (green → red → blue → ...)</td></tr>
+    <tr><td><kbd>R</kbd></td><td>Reset current page mask</td></tr>
+  </table>
+
+  <h3 style="margin: 24px 0 8px;">View</h3>
+  <table class="kb-table">
+    <tr><th>Shortcut</th><th>Function</th></tr>
+    <tr><td><kbd>+</kbd> or <kbd>=</kbd></td><td>Zoom in</td></tr>
+    <tr><td><kbd>-</kbd></td><td>Zoom out</td></tr>
+    <tr><td><kbd>⌘ 0</kbd></td><td>Fit to Screen</td></tr>
+    <tr><td><kbd>Space</kbd></td><td>Fit to Screen</td></tr>
+    <tr><td>Scroll up / down</td><td>Zoom in / out</td></tr>
+    <tr><td>Hold <kbd>⌥ Option</kbd> + drag</td><td>Pan</td></tr>
+  </table>
+
+  <h3 style="margin: 24px 0 8px;">Edit & Navigation</h3>
+  <table class="kb-table">
+    <tr><th>Shortcut</th><th>Function</th></tr>
+    <tr><td><kbd>⌘ Z</kbd></td><td>Undo</td></tr>
+    <tr><td><kbd>⇧ ⌘ Z</kbd></td><td>Redo</td></tr>
+    <tr><td><kbd>↑</kbd> / <kbd>←</kbd></td><td>Previous page</td></tr>
+    <tr><td><kbd>↓</kbd> / <kbd>→</kbd></td><td>Next page</td></tr>
+    <tr><td><kbd>Enter</kbd></td><td>Save current page changes</td></tr>
+  </table>
+
+  <h3 style="margin: 24px 0 8px;">Mouse</h3>
+  <table class="kb-table">
+    <tr><th>Action</th><th>Function</th></tr>
+    <tr><td>Left-click drag</td><td>Rectangle select / brush draw mask</td></tr>
+    <tr><td>Scroll wheel</td><td>Zoom in / out</td></tr>
+    <tr><td><kbd>⌥ Option</kbd> + left-click drag</td><td>Pan</td></tr>
+    <tr><td>Right-click (or <kbd>Ctrl</kbd>+left-click)</td><td>Context menu</td></tr>
+    <tr><td>Hold <kbd>Shift</kbd> + drag</td><td>Constrain proportions</td></tr>
+  </table>
+</div>
+
+<!-- ===== Advanced Features ===== -->
+<div class="section">
+  <h2>Advanced Features</h2>
+
+  <div class="step">
+    <div class="sh"><div class="sn">⭐</div><h3>Right-Click Quick Open</h3></div>
+    <p>After installing ReVision, for any PDF or image file in Finder:</p>
+    <ol style="color: var(--muted); margin: 8px 0 8px 20px;">
+      <li>Right-click → "Open With"</li>
+      <li>Select <strong>ReVision</strong></li>
+      <li>File imports directly into the workspace</li>
+    </ol>
+    <p>If ReVision is not yet open, the system will automatically launch the app and import the file.</p>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">⭐</div><h3>Use with NotebookLM</h3></div>
+    <p>Scanned PDFs or screenshot presentations cannot be properly read by AI tools like NotebookLM. Use ReVision to convert them to PPTX with real text, enabling AI to fully understand every page.</p>
+    <div class="hl"><strong>🎯 Workflow:</strong> PDF → ReVision → PPTX → Upload to NotebookLM → AI fully understands content</div>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">⭐</div><h3>AI Repair Strategy</h3></div>
+    <p>ReVision automatically analyzes the background complexity of each text area and selects the best repair method:</p>
+    <table>
+      <tr><th>Background Type</th><th>Repair Method</th><th>Speed</th></tr>
+      <tr><td>Solid white background</td><td>Median color fill</td><td>Very fast</td></tr>
+      <tr><td>Gradient / simple colors</td><td>Telea interpolation</td><td>Fast</td></tr>
+      <tr><td>Photo / chart / complex texture</td><td>LaMa deep learning AI</td><td>~10 sec/page</td></tr>
+    </table>
+    <p style="margin-top: 12px;">The system selects automatically — no manual configuration needed.</p>
+  </div>
+</div>
+
+<!-- ===== FAQ / Notes ===== -->
+<div class="section">
+  <h2>⚠️ Notes & FAQ</h2>
+
+  <div class="step">
+    <div class="sh"><div class="sn">1</div><h3>Tables & Charts</h3></div>
+    <p>OCR detects all text, including text within tables and charts. If you don't want to remove that text, use the <strong>"Erase" tool</strong> to remove the green mask from those areas, keeping them as part of the background.</p>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">2</div><h3>High-Resolution Images</h3></div>
+    <p>When importing ultra-high-resolution images (e.g., camera photos at 4000x6000), AI repair automatically downscales to 2048px for processing then restores, ensuring export doesn't hang. Non-masked areas retain original quality.</p>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">3</div><h3>Export Time</h3></div>
+    <p>Processing time per page depends on background complexity:</p>
+    <ul style="color: var(--muted); margin: 8px 0 8px 20px;">
+      <li>Solid background pages: ~2-3 seconds</li>
+      <li>Photo / complex background pages: ~10-15 seconds (LaMa AI inference)</li>
+      <li>You can click "Cancel" at any time during export</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">4</div><h3>Supported Formats</h3></div>
+    <p>Input supports <strong>PDF, PNG, JPEG, BMP</strong>. You can mix different formats and export as a unified <strong>PPTX</strong>.</p>
+    <p>PDFs automatically detect page dimensions (A4, 16:9, 4:3, etc.). Non-standard sizes are automatically adapted.</p>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">5</div><h3>OCR Languages</h3></div>
+    <p>Uses the macOS native Vision OCR engine, supporting Traditional Chinese, Simplified Chinese, English, Japanese, and many other languages. Recognition accuracy continues to improve with macOS updates.</p>
+  </div>
+</div>
+
+<!-- ===== Who is ReVision for ===== -->
+<div class="section">
+  <h2>Who is ReVision for?</h2>
+  <div class="features">
+    <div class="fc"><div class="icon">🎓</div><h3>Teachers</h3><p>Convert old lecture PDFs to editable presentations.</p></div>
+    <div class="fc"><div class="icon">📚</div><h3>Students</h3><p>Turn class photos or screenshots into note presentations with NotebookLM.</p></div>
+    <div class="fc"><div class="icon">💼</div><h3>Business</h3><p>Modify received PDF proposals, extract and recombine into new presentations.</p></div>
+    <div class="fc"><div class="icon">🎨</div><h3>Designers</h3><p>Extract clean backgrounds from existing materials, get editable text and layouts.</p></div>
+  </div>
+</div>
+
+<!-- ===== System Requirements ===== -->
+<div class="section">
+  <h2>System Requirements & Download</h2>
+  <table>
+    <tr><th>Item</th><th>Requirement</th></tr>
+    <tr><td>Operating System</td><td>macOS 12.0 (Monterey) or later</td></tr>
+    <tr><td>Processor</td><td>Native Apple Silicon support (M1 / M2 / M3 / M4)</td></tr>
+    <tr><td>Input Formats</td><td>PDF, PNG, JPEG, BMP</td></tr>
+    <tr><td>Output Format</td><td>PPTX (Microsoft PowerPoint / Keynote / Google Slides)</td></tr>
+    <tr><td>Internet</td><td>Not required (fully offline)</td></tr>
+  </table>
+  <div class="dl-btns">
+    <a href="#" class="primary">Mac App Store</a>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p>ReVision © 2026 — OCR and AI processing run entirely on-device. Your files always stay on your Mac.</p>
+  <p style="margin-top: 8px;"><a href="privacy.html" style="color: var(--muted);">Privacy Policy</a></p>
+</div>
+
+</body>
+</html>
