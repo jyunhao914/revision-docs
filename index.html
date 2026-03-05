@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReVision — 軟體介紹與使用教學</title>
+<style>
+  :root { --accent: #1a7a5a; --bg: #f8f9fa; --card: #fff; --text: #222; --muted: #555; --border: #e0e0e0; --warn: #e65100; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "Noto Sans TC", "PingFang TC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; }
+
+  .hero { background: linear-gradient(135deg, #0d3b2e 0%, #1a7a5a 50%, #2ba87a 100%); color: #fff; text-align: center; padding: 80px 20px 60px; }
+  .hero h1 { font-size: 3em; font-weight: 700; letter-spacing: 2px; }
+  .hero p { font-size: 1.25em; opacity: 0.92; max-width: 720px; margin: 12px auto 0; }
+  .hero .badges { margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero .badge { background: rgba(255,255,255,0.18); padding: 6px 16px; border-radius: 20px; font-size: 0.9em; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+  .section { padding: 56px 0; }
+  .section h2 { font-size: 1.7em; color: var(--accent); margin-bottom: 6px; }
+  .section .sub { color: var(--muted); font-size: 1.05em; margin-bottom: 28px; }
+
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .fc { background: var(--card); border-radius: 12px; padding: 22px; border: 1px solid var(--border); }
+  .fc .icon { font-size: 1.8em; margin-bottom: 6px; }
+  .fc h3 { font-size: 1.1em; margin-bottom: 4px; }
+  .fc p { color: var(--muted); font-size: 0.93em; }
+
+  .step { background: var(--card); border-radius: 12px; padding: 26px; margin-bottom: 22px; border: 1px solid var(--border); }
+  .sh { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .sn { background: var(--accent); color: #fff; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.05em; flex-shrink: 0; }
+  .sh h3 { font-size: 1.15em; }
+  .step p { color: var(--muted); margin-bottom: 10px; }
+  .step img { width: 100%; border-radius: 8px; margin-top: 12px; border: 1px solid var(--border); }
+
+  .hl { background: #e8f5e9; border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0; }
+  .hl strong { color: var(--accent); }
+  .warn { background: #fff3e0; border-left: 4px solid var(--warn); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0; }
+  .warn strong { color: var(--warn); }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.95em; }
+  th { background: var(--accent); color: #fff; }
+  tr:nth-child(even) { background: #f5f5f5; }
+  .yes { color: #2e7d32; font-weight: 700; }
+  .no { color: #c62828; }
+
+  .tg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .ti { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+  .ti .bl { background: #333; color: #fff; padding: 3px 10px; border-radius: 5px; font-size: 0.82em; white-space: nowrap; font-family: monospace; }
+  .ti span { color: var(--muted); font-size: 0.9em; }
+
+  kbd { background: #eee; border: 1px solid #ccc; border-radius: 4px; padding: 2px 7px; font-family: monospace; font-size: 0.88em; }
+
+  .kb-table td:first-child { white-space: nowrap; }
+
+  .footer { text-align: center; padding: 36px 20px; color: var(--muted); font-size: 0.88em; border-top: 1px solid var(--border); }
+  .dl-btns { text-align: center; margin-top: 28px; }
+  .dl-btns a { display: inline-block; padding: 13px 32px; border-radius: 10px; text-decoration: none; font-size: 1.05em; font-weight: 600; margin: 0 6px; }
+  .dl-btns .primary { background: var(--accent); color: #fff; }
+  .dl-btns .secondary { background: #333; color: #fff; }
+
+  @media (max-width: 640px) { .features, .tg { grid-template-columns: 1fr; } .hero h1 { font-size: 2em; } }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>ReVision</h1>
+  <p>PDF 與圖片轉可編輯簡報——AI 無痕修補，人工精準把關</p>
+  <div class="badges">
+    <span class="badge">🖥 macOS 原生</span>
+    <span class="badge">🔒 全本機運算</span>
+    <span class="badge">🧠 深度學習修補</span>
+    <span class="badge">✋ 手動可介入</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== 軟體介紹 ===== -->
+<div class="section">
+  <h2>為什麼選擇 ReVision？</h2>
+  <p class="sub">大多數轉檔工具只給你一鍵匯出，結果不對也無能為力。<br>ReVision 不一樣——AI 自動處理之後，你還能逐頁檢視、手動修正。</p>
+  <div class="features">
+    <div class="fc"><div class="icon">🧠</div><h3>業界領先的 AI 背景修補</h3><p>同類軟體僅能處理純色背景。ReVision 即使文字疊在照片、圖表上，也能無痕還原底圖。</p></div>
+    <div class="fc"><div class="icon">✋</div><h3>人工精準把關</h3><p>AI 辨識不完美？直接標記、擦除、微調，匯出前所有細節你說了算。</p></div>
+    <div class="fc"><div class="icon">📑</div><h3>多檔整合與頁面管理</h3><p>匯入多份 PDF 與圖片，拖曳排序、刪除頁面、追加檔案，整合為一份簡報。</p></div>
+    <div class="fc"><div class="icon">🔒</div><h3>隱私至上</h3><p>OCR 與 AI 運算皆在本地端完成。機密文件絕不上傳雲端。</p></div>
+    <div class="fc"><div class="icon">✂️</div><h3>物件去背</h3><p>深度學習一鍵去背，精準分離前景物件，直接置入簡報。</p></div>
+    <div class="fc"><div class="icon">🤖</div><h3>NotebookLM 最佳夥伴</h3><p>掃描式 PDF 轉為含真實文字的 PPTX，讓 AI 工具完整理解每一頁。</p></div>
+  </div>
+</div>
+
+<!-- ===== 比較表 ===== -->
+<div class="section">
+  <h2>與同類軟體比較</h2>
+  <table>
+    <tr><th>功能</th><th>ReVision</th><th>一般轉檔工具</th></tr>
+    <tr><td>複雜背景修補（照片、圖表）</td><td class="yes">✅ 深度學習引擎</td><td class="no">❌ 僅純色背景</td></tr>
+    <tr><td>手動介入編輯</td><td class="yes">✅ 標記 / 擦除 / 微調</td><td class="no">❌ 一鍵匯出</td></tr>
+    <tr><td>字型大小 / 顏色 / 粗體還原</td><td class="yes">✅ 精準偵測</td><td class="no">⚠️ 部分支援</td></tr>
+    <tr><td>多檔整合 / 頁面管理</td><td class="yes">✅ 拖曳排序、刪除、追加</td><td class="no">❌ 單檔處理</td></tr>
+    <tr><td>物件去背</td><td class="yes">✅ 深度學習去背</td><td class="no">❌ 不支援</td></tr>
+    <tr><td>隱私保護</td><td class="yes">✅ 全本機運算</td><td class="no">⚠️ 多需上傳雲端</td></tr>
+  </table>
+</div>
+
+<!-- ===== 介面總覽 ===== -->
+<div class="section">
+  <h2>介面總覽</h2>
+  <p class="sub">一眼看懂 ReVision 的操作介面</p>
+  <img src="screenshots/step1_import.png" style="width:100%; border-radius:10px; border:1px solid var(--border);">
+  <p style="margin-top:14px;">上方工具列全覽：</p>
+  <img src="screenshots/topbar_full.png" style="width:100%; border-radius:8px; border:1px solid var(--border);">
+  <div class="tg" style="margin-top: 20px;">
+    <div class="ti"><div class="bl">A</div><span><strong>左側面板</strong> — 頁面縮圖列表，拖曳排序</span></div>
+    <div class="ti"><div class="bl">B</div><span><strong>工具列</strong> — 標記 / 移除 / 縮放 / 放大鏡等</span></div>
+    <div class="ti"><div class="bl">C</div><span><strong>編輯畫布</strong> — 主要操作區域，綠色=文字遮罩</span></div>
+    <div class="ti"><div class="bl">D</div><span><strong>匯出 PPTX</strong> — 右上角，一鍵匯出簡報</span></div>
+  </div>
+</div>
+
+<!-- ===== 使用教學 ===== -->
+<div class="section">
+  <h2>使用教學</h2>
+  <p class="sub">五個步驟，從 PDF 到完美簡報</p>
+
+  <!-- Step 1 -->
+  <div class="step">
+    <div class="sh"><div class="sn">1</div><h3>匯入檔案</h3></div>
+    <p>點擊左上角 <strong>＋檔案</strong> 按鈕，選擇 PDF 或圖片檔案。支援一次選擇多個檔案。</p>
+    <p>也可以在 Finder 中對 PDF 或圖片<strong>右鍵 →「以其他應用程式開啟」→ ReVision</strong>，直接匯入。</p>
+    <div class="hl"><strong>💡 提示：</strong>已匯入檔案後，再點 <strong>＋檔案</strong> 會追加到現有頁面後方，可整合多份來源。</div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step">
+    <div class="sh"><div class="sn">2</div><h3>自動辨識文字</h3></div>
+    <p>匯入後，ReVision 自動以 macOS 原生 OCR 辨識所有文字，並以<strong style="color:#4caf50;"> 綠色遮罩</strong>標示。</p>
+    <p>綠色區域的文字將在匯出時被移除、背景 AI 修補，最後還原為可編輯的文字方塊。</p>
+    <img src="screenshots/step2_mask.png">
+    <p style="margin-top:14px;">放大看——綠色矩形就是 OCR 偵測到的文字區域：</p>
+    <img src="screenshots/mask_detail.png">
+    <div class="warn"><strong>⚠️ 注意：</strong>表格、圖表上的文字也會被偵測。如果不想移除，請用「移除」工具擦掉該區域的遮罩。</div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step">
+    <div class="sh"><div class="sn">3</div><h3>手動調整遮罩</h3></div>
+    <p>這是 ReVision 的<strong>核心優勢</strong>——AI 辨識不完美時，你可以直接手動修正：</p>
+    <img src="screenshots/step3_toolbar.png">
+    <div class="tg">
+      <div class="ti"><div class="bl">標記</div><span>框選要<strong>額外移除</strong>的文字區域（新增綠色遮罩）</span></div>
+      <div class="ti"><div class="bl">移除</div><span>擦掉<strong>不需要移除</strong>的遮罩（保留原始文字）</span></div>
+      <div class="ti"><div class="bl">＋</div><span>放大畫面（或滾輪向上）</span></div>
+      <div class="ti"><div class="bl">−</div><span>縮小畫面（或滾輪向下）</span></div>
+      <div class="ti"><div class="bl">配合視窗</div><span>自動縮放至適合視窗大小</span></div>
+      <div class="ti"><div class="bl">放大鏡</div><span>即時放大游標周圍區域，檢視細節</span></div>
+      <div class="ti"><div class="bl">恢復</div><span>復原上一步操作（Undo）</span></div>
+      <div class="ti"><div class="bl">重置</div><span>回到初始自動辨識狀態</span></div>
+    </div>
+    <div class="hl"><strong>💡 提示：</strong>按 <kbd>E</kbd> 可快速切換「標記」和「移除」模式，不用移動滑鼠點按鈕。</div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step">
+    <div class="sh"><div class="sn">4</div><h3>管理頁面</h3></div>
+    <p>左側面板是你的頁面管理區：</p>
+    <img src="screenshots/step4_pages.png" style="max-width: 200px;">
+    <ul style="color: var(--muted); margin: 12px 0 8px 20px;">
+      <li><strong>點擊縮圖</strong> — 切換到該頁編輯</li>
+      <li><strong>拖曳縮圖</strong> — 上下拖曳調整頁面順序</li>
+      <li><strong>右鍵縮圖</strong> — 顯示選單（刪除頁面）</li>
+      <li><strong>＋檔案</strong> — 追加更多 PDF 或圖片</li>
+      <li><strong>關閉檔案</strong> — 清除所有頁面重新開始</li>
+    </ul>
+    <div class="hl"><strong>💡 提示：</strong>用 <kbd>↑</kbd> <kbd>↓</kbd> 或 <kbd>←</kbd> <kbd>→</kbd> 方向鍵快速切換頁面。</div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="step">
+    <div class="sh"><div class="sn">5</div><h3>匯出 PPTX</h3></div>
+    <p>確認每一頁都滿意後，點擊右上角 <strong>匯出 PPTX</strong> 按鈕。ReVision 會逐頁執行：</p>
+    <ul style="color: var(--muted); margin: 8px 0 8px 20px;">
+      <li>以 200 DPI 高品質渲染頁面</li>
+      <li>AI 智慧修補背景（根據複雜度自動選擇最佳策略）</li>
+      <li>精準偵測字型大小、顏色、粗體</li>
+      <li>產生可編輯的文字方塊</li>
+      <li>輸出標準 .pptx 檔案（可用 PowerPoint / Keynote / Google Slides 開啟）</li>
+    </ul>
+    <div class="warn"><strong>⚠️ 注意：</strong>複雜背景（照片頁）的 AI 修補需要較長時間（約 10 秒/頁），請耐心等待。</div>
+  </div>
+</div>
+
+<!-- ===== 快捷鍵 ===== -->
+<div class="section">
+  <h2>⌨️ 快捷鍵一覽</h2>
+  <p class="sub">善用快捷鍵可大幅加速你的工作流程</p>
+
+  <h3 style="margin-bottom: 8px;">工具切換</h3>
+  <table class="kb-table">
+    <tr><th>快捷鍵</th><th>功能</th></tr>
+    <tr><td><kbd>E</kbd></td><td>切換「標記」↔「移除」模式</td></tr>
+    <tr><td><kbd>W</kbd></td><td>切換「矩形框選」↔「筆刷」模式</td></tr>
+    <tr><td><kbd>Z</kbd></td><td>開啟 / 關閉放大鏡</td></tr>
+    <tr><td><kbd>C</kbd></td><td>切換遮罩顏色（綠→紅→藍→…）</td></tr>
+    <tr><td><kbd>R</kbd></td><td>重置當前頁面遮罩</td></tr>
+  </table>
+
+  <h3 style="margin: 24px 0 8px;">檢視操作</h3>
+  <table class="kb-table">
+    <tr><th>快捷鍵</th><th>功能</th></tr>
+    <tr><td><kbd>+</kbd> 或 <kbd>=</kbd></td><td>放大畫面</td></tr>
+    <tr><td><kbd>-</kbd></td><td>縮小畫面</td></tr>
+    <tr><td><kbd>⌘ 0</kbd></td><td>配合視窗（Fit to Screen）</td></tr>
+    <tr><td><kbd>Space</kbd></td><td>配合視窗</td></tr>
+    <tr><td>滾輪上 / 下</td><td>縮放畫面</td></tr>
+    <tr><td>按住 <kbd>⌥ Option</kbd> + 拖曳</td><td>平移畫面（Pan）</td></tr>
+  </table>
+
+  <h3 style="margin: 24px 0 8px;">編輯與導航</h3>
+  <table class="kb-table">
+    <tr><th>快捷鍵</th><th>功能</th></tr>
+    <tr><td><kbd>⌘ Z</kbd></td><td>復原（Undo）</td></tr>
+    <tr><td><kbd>⇧ ⌘ Z</kbd></td><td>重做（Redo）</td></tr>
+    <tr><td><kbd>↑</kbd> / <kbd>←</kbd></td><td>上一頁</td></tr>
+    <tr><td><kbd>↓</kbd> / <kbd>→</kbd></td><td>下一頁</td></tr>
+    <tr><td><kbd>Enter</kbd></td><td>儲存當前頁面變更</td></tr>
+  </table>
+
+  <h3 style="margin: 24px 0 8px;">滑鼠操作</h3>
+  <table class="kb-table">
+    <tr><th>操作</th><th>功能</th></tr>
+    <tr><td>左鍵拖曳</td><td>框選 / 筆刷繪製遮罩</td></tr>
+    <tr><td>滾輪</td><td>縮放畫面</td></tr>
+    <tr><td><kbd>⌥ Option</kbd> + 左鍵拖曳</td><td>平移畫面</td></tr>
+    <tr><td>右鍵（或 <kbd>Ctrl</kbd>+左鍵）</td><td>右鍵選單</td></tr>
+    <tr><td>按住 <kbd>Shift</kbd> + 拖曳</td><td>等比例約束</td></tr>
+  </table>
+</div>
+
+<!-- ===== 進階功能 ===== -->
+<div class="section">
+  <h2>進階功能</h2>
+
+  <div class="step">
+    <div class="sh"><div class="sn">⭐</div><h3>物件去背</h3></div>
+    <p>在編輯頁面中，對圖片中的物件使用去背功能。深度學習模型（SAM + rembg）會精準分離前景物件，產生透明背景的素材直接置入簡報投影片。</p>
+    <div class="hl"><strong>💡 使用方式：</strong>在畫布上右鍵，選擇「物件去背」，然後框選目標物件。</div>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">⭐</div><h3>右鍵快速開啟</h3></div>
+    <p>安裝 ReVision 後，在 Finder 中對任何 PDF 或圖片檔案：</p>
+    <ol style="color: var(--muted); margin: 8px 0 8px 20px;">
+      <li>右鍵 →「以其他應用程式開啟」</li>
+      <li>選擇 <strong>ReVision</strong></li>
+      <li>檔案直接匯入工作區</li>
+    </ol>
+    <p>如果 ReVision 尚未開啟，系統會自動啟動 App 並匯入檔案。</p>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">⭐</div><h3>搭配 NotebookLM 使用</h3></div>
+    <p>掃描式 PDF 或截圖簡報，AI 工具（如 NotebookLM）無法正確擷取文字。用 ReVision 轉為含真實文字的 PPTX，讓 AI 完整理解每一頁內容。</p>
+    <div class="hl"><strong>🎯 流程：</strong>PDF → ReVision 轉 PPTX → 上傳 NotebookLM → AI 完整理解內容</div>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">⭐</div><h3>AI 修補策略說明</h3></div>
+    <p>ReVision 會自動分析每個文字區域的背景複雜度，選擇最佳修補方式：</p>
+    <table>
+      <tr><th>背景類型</th><th>修補方式</th><th>速度</th></tr>
+      <tr><td>純白色背景</td><td>中位數色填充</td><td>極快</td></tr>
+      <tr><td>漸層 / 簡單色塊</td><td>Telea 算法插值</td><td>快速</td></tr>
+      <tr><td>照片 / 圖表 / 複雜紋理</td><td>LaMa 深度學習 AI</td><td>~10 秒/頁</td></tr>
+    </table>
+    <p style="margin-top: 12px;">系統全自動判斷，無需手動選擇。</p>
+  </div>
+</div>
+
+<!-- ===== 注意事項 ===== -->
+<div class="section">
+  <h2>⚠️ 注意事項與常見問題</h2>
+
+  <div class="step">
+    <div class="sh"><div class="sn">1</div><h3>表格與圖表文字</h3></div>
+    <p>OCR 會偵測所有文字，包含表格和圖表中的。如果不想移除這些文字，請用<strong>「移除」工具</strong>擦掉該區域的綠色遮罩，讓它保留在背景中。</p>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">2</div><h3>高解析度圖片</h3></div>
+    <p>直接匯入超高解析度圖片（如相機拍攝的 4000×6000 照片）時，AI 修補會自動降縮至 2048px 處理再還原，以確保匯出不會卡住。非遮罩區域保持原始畫質。</p>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">3</div><h3>匯出時間</h3></div>
+    <p>每頁處理時間取決於背景複雜度：</p>
+    <ul style="color: var(--muted); margin: 8px 0 8px 20px;">
+      <li>純色背景頁面：約 2-3 秒</li>
+      <li>照片/複雜背景頁面：約 10-15 秒（LaMa AI 推理）</li>
+      <li>匯出過程中可隨時點「取消」中斷</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">4</div><h3>支援的檔案格式</h3></div>
+    <p>輸入支援 <strong>PDF、PNG、JPEG、BMP</strong>。可混合匯入不同格式，統一匯出為 <strong>PPTX</strong>。</p>
+    <p>PDF 會自動偵測頁面尺寸（A4、16:9、4:3 等），非標準尺寸會自動適配。</p>
+  </div>
+
+  <div class="step">
+    <div class="sh"><div class="sn">5</div><h3>文字辨識語言</h3></div>
+    <p>使用 macOS 原生 Vision OCR 引擎，支援繁體中文、簡體中文、英文、日文等多種語言，且會隨 macOS 更新持續改善辨識準確度。</p>
+  </div>
+</div>
+
+<!-- ===== 適用場景 ===== -->
+<div class="section">
+  <h2>誰適合用 ReVision？</h2>
+  <div class="features">
+    <div class="fc"><div class="icon">🎓</div><h3>教師</h3><p>將舊講義 PDF 轉為可編輯簡報，快速更新教材內容。</p></div>
+    <div class="fc"><div class="icon">📚</div><h3>學生</h3><p>課堂拍照或截圖，直接轉為筆記簡報，搭配 NotebookLM 複習。</p></div>
+    <div class="fc"><div class="icon">💼</div><h3>商務人士</h3><p>收到的 PDF 提案需要修改，抽取頁面重新組合成新簡報。</p></div>
+    <div class="fc"><div class="icon">🎨</div><h3>設計師</h3><p>從現有素材快速提取乾淨背景與去背物件。</p></div>
+  </div>
+</div>
+
+<!-- ===== 系統需求 ===== -->
+<div class="section">
+  <h2>系統需求與下載</h2>
+  <table>
+    <tr><th>項目</th><th>需求</th></tr>
+    <tr><td>作業系統</td><td>macOS 12.0（Monterey）或以上</td></tr>
+    <tr><td>處理器</td><td>原生支援 Apple Silicon（M1 / M2 / M3 / M4）</td></tr>
+    <tr><td>輸入格式</td><td>PDF、PNG、JPEG、BMP</td></tr>
+    <tr><td>輸出格式</td><td>PPTX（Microsoft PowerPoint / Keynote / Google Slides）</td></tr>
+    <tr><td>網路需求</td><td>不需要（全離線運作）</td></tr>
+  </table>
+  <div class="dl-btns">
+    <a href="#" class="primary">Mac App Store</a>
+    <a href="#" class="secondary">下載離線版 DMG</a>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p>ReVision © 2026 — OCR 與 AI 運算皆在本地端完成，您的檔案始終留在自己的 Mac</p>
+  <p style="margin-top: 8px;"><a href="privacy.html" style="color: var(--muted);">隱私權政策</a></p>
+</div>
+
+</body>
+</html>
