@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SlideCast — iPhone / iPad 變成你的攝影棚</title>
+<meta name="description" content="SlideCast 讓你拿著 iPhone 或 iPad，配上任何簡報筆，在教室或任何場所錄製教學影片。帶著手機就能教學、錄製、投影，全程零上傳，影片直存相簿。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jyunhao914.github.io/revision-docs/slidecast.html">
+<meta property="og:title" content="SlideCast — iPhone / iPad 變成你的攝影棚">
+<meta property="og:description" content="帶著 iPhone 就能教學、錄製、投影。SlideCast 讓每一堂課都能留下高品質的教學影片。">
+<meta property="og:image" content="https://jyunhao914.github.io/revision-docs/screenshots/slidecast-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SlideCast — iPhone / iPad 變成你的攝影棚">
+<meta name="twitter:description" content="帶著 iPhone 就能教學、錄製、投影。全程離線，影片直存相簿。">
+<meta name="twitter:image" content="https://jyunhao914.github.io/revision-docs/screenshots/slidecast-og.png">
+<style>
+  :root {
+    --accent: #1a1a2e;
+    --accent2: #16213e;
+    --blue: #0f3460;
+    --blue-light: #e94560;
+    --teal: #0077b6;
+    --teal-light: #00b4d8;
+    --bg: #f8fafc;
+    --card: #fff;
+    --text: #1a1a2e;
+    --muted: #4a5568;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "Noto Sans TC", "PingFang TC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; }
+
+  /* NAV */
+  nav { background: rgba(10,16,40,0.97); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-logo { color: #fff; font-weight: 700; font-size: 1.15em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
+  .nav-links { display: flex; gap: 20px; }
+  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.92em; transition: color 0.2s; }
+  .nav-links a:hover { color: #fff; }
+  .nav-lang { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85em; border: 1px solid rgba(255,255,255,0.25); padding: 4px 12px; border-radius: 20px; transition: all 0.2s; }
+  .nav-lang:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0a1020 0%, #0d1f3c 40%, #0f3460 75%, #1a5276 100%);
+    color: #fff; text-align: center; padding: 90px 20px 70px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(0,180,216,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 70%, rgba(233,69,96,0.08) 0%, transparent 50%);
+  }
+  .hero > * { position: relative; z-index: 1; }
+  .hero-badge { display: inline-block; background: rgba(0,180,216,0.2); border: 1px solid rgba(0,180,216,0.4); color: #90e0ef; padding: 5px 16px; border-radius: 20px; font-size: 0.85em; letter-spacing: 0.5px; margin-bottom: 20px; }
+  .hero h1 { font-size: clamp(2em, 5vw, 3.4em); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 8px; }
+  .hero h1 em { color: #00b4d8; font-style: normal; }
+  .hero .tagline { font-size: clamp(1em, 2.5vw, 1.25em); opacity: 0.85; max-width: 620px; margin: 12px auto 0; }
+  .hero-cta { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: #00b4d8; color: #fff; padding: 14px 34px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 1.05em; transition: background 0.2s, transform 0.1s; display: inline-block; }
+  .btn-primary:hover { background: #0096c7; transform: translateY(-1px); }
+  .btn-ghost { background: rgba(255,255,255,0.1); color: #fff; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1.05em; border: 1px solid rgba(255,255,255,0.25); transition: background 0.2s; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.18); }
+  .hero-devices { margin-top: 48px; display: flex; gap: 16px; justify-content: center; align-items: flex-end; flex-wrap: wrap; }
+  .device-tag { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); padding: 8px 18px; border-radius: 10px; font-size: 0.9em; }
+  .device-tag .label { opacity: 0.6; font-size: 0.8em; display: block; }
+
+  /* SECTIONS */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+  .section { padding: 64px 0; }
+  .section-header { text-align: center; margin-bottom: 40px; }
+  .section-header .eyebrow { font-size: 0.85em; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); font-weight: 600; margin-bottom: 8px; }
+  .section-header h2 { font-size: clamp(1.5em, 3vw, 2.1em); color: var(--accent); }
+  .section-header p { color: var(--muted); margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  /* SCENARIO */
+  .scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .scenario-card { background: var(--card); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); transition: box-shadow 0.2s, transform 0.2s; }
+  .scenario-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); transform: translateY(-3px); }
+  .scenario-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: linear-gradient(135deg, #e0f2fe, #bae6fd); display: flex; align-items: center; justify-content: center; font-size: 3.5em; }
+  .scenario-body { padding: 20px; }
+  .scenario-body h3 { font-size: 1.05em; margin-bottom: 6px; color: var(--blue); }
+  .scenario-body p { color: var(--muted); font-size: 0.9em; }
+
+  /* FEATURES */
+  .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .feat { background: var(--card); border-radius: 14px; padding: 26px; border: 1px solid var(--border); display: flex; gap: 16px; align-items: flex-start; }
+  .feat-icon { font-size: 2em; flex-shrink: 0; width: 52px; height: 52px; background: #e0f7fa; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .feat-body h3 { font-size: 1.05em; margin-bottom: 5px; }
+  .feat-body p { color: var(--muted); font-size: 0.9em; }
+
+  /* HOW IT WORKS */
+  .steps { display: flex; flex-direction: column; gap: 20px; }
+  .step { background: var(--card); border-radius: 14px; padding: 28px; border: 1px solid var(--border); display: flex; gap: 20px; align-items: flex-start; }
+  .step-num { background: linear-gradient(135deg, var(--teal), var(--teal-light)); color: #fff; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1em; flex-shrink: 0; }
+  .step-body h3 { font-size: 1.1em; margin-bottom: 6px; }
+  .step-body p { color: var(--muted); font-size: 0.93em; }
+
+  /* PRIVACY CALLOUT */
+  .privacy-box { background: linear-gradient(135deg, #0a1020, #0d1f3c); color: #fff; border-radius: 20px; padding: 48px 40px; text-align: center; }
+  .privacy-box .shield { font-size: 3em; margin-bottom: 16px; }
+  .privacy-box h2 { font-size: 1.7em; margin-bottom: 10px; }
+  .privacy-box p { opacity: 0.8; max-width: 560px; margin: 0 auto; }
+  .privacy-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+  .pbadge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 18px; border-radius: 20px; font-size: 0.88em; display: flex; align-items: center; gap: 6px; }
+
+  /* SUPPORT */
+  .support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .support-card { background: var(--card); border-radius: 14px; padding: 28px; border: 1px solid var(--border); }
+  .support-card h3 { font-size: 1.1em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .support-card p { color: var(--muted); font-size: 0.9em; margin-bottom: 10px; }
+  .support-card a { color: var(--teal); text-decoration: none; font-weight: 600; }
+  .support-card a:hover { text-decoration: underline; }
+  .contact-email { font-size: 0.95em; color: var(--text); background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 10px 16px; display: inline-block; margin-top: 8px; font-family: monospace; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 36px 20px; color: var(--muted); font-size: 0.88em; border-top: 1px solid var(--border); }
+  .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .footer-links a { color: var(--muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--text); }
+
+  @media (max-width: 640px) {
+    .scenario-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .support-grid { grid-template-columns: 1fr; }
+    .step { flex-direction: column; gap: 12px; }
+    .privacy-box { padding: 36px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="slidecast.html">
+      <span>SlideCast</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <div class="nav-links">
+        <a href="#features">功能</a>
+        <a href="#how">使用方式</a>
+        <a href="#privacy">隱私</a>
+        <a href="#support">支援</a>
+      </div>
+      <a class="nav-lang" href="slidecast-en.html">English</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">📱 iOS App · iPhone &amp; iPad</div>
+  <h1>iPhone / iPad<br>變成你的<em>攝影棚</em></h1>
+  <p class="tagline">帶著手機就能教學、錄製、投影。SlideCast 讓每一堂課都能留下高品質的教學影片。</p>
+  <div class="hero-cta">
+    <a class="btn-primary" href="https://apps.apple.com/app/slidecast/id0000000000" target="_blank">
+      ⬇ 在 App Store 下載
+    </a>
+    <a class="btn-ghost" href="#how">了解如何使用</a>
+  </div>
+  <div class="hero-devices">
+    <div class="device-tag"><span class="label">支援</span>iPhone 全系列</div>
+    <div class="device-tag"><span class="label">支援</span>iPad 全系列</div>
+    <div class="device-tag"><span class="label">iOS</span>17.0 以上</div>
+    <div class="device-tag"><span class="label">語言</span>繁體中文 · English</div>
+  </div>
+</section>
+
+<!-- SCENARIOS -->
+<section class="section" id="scenarios">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">使用情境</div>
+      <h2>帶著手機，走到哪教到哪</h2>
+      <p>不需要額外設備，只要一支 iPhone 或 iPad，就能完成整個教學錄製流程</p>
+    </div>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <div class="scenario-img">🎓</div>
+        <div class="scenario-body">
+          <h3>課堂教學錄製</h3>
+          <p>站在黑板前，手持 iPhone，簡報投影在大螢幕，鏡頭同步錄下你的講解。下課後影片自動存到相簿。</p>
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-img">📡</div>
+        <div class="scenario-body">
+          <h3>投影 + 同步錄製</h3>
+          <p>透過 AirPlay 或 HDMI 投影到大螢幕，SlideCast 同時錄下講師畫面與每一張投影片，一機搞定。</p>
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-img">🖊</div>
+        <div class="scenario-body">
+          <h3>搭配簡報筆使用</h3>
+          <p>連接任何 Bluetooth 簡報筆，在台上自由走動翻頁，手不用碰 iPhone，鏡頭持續追蹤你的表情。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features" style="background: #fff;">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">核心功能</div>
+      <h2>一個 App，完整的錄製工作流程</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feat">
+        <div class="feat-icon">📄</div>
+        <div class="feat-body">
+          <h3>PDF 簡報直接匯入</h3>
+          <p>從 Files、iCloud Drive 或 AirDrop 匯入任何 PDF，每頁自動渲染成高解析度投影片。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🎥</div>
+        <div class="feat-body">
+          <h3>講師 PiP 子畫面</h3>
+          <p>前鏡頭拍攝講師，子畫面浮在投影片角落。可調整大小、位置、形狀（矩形或圓形）。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🎙</div>
+        <div class="feat-body">
+          <h3>彈性音訊輸入</h3>
+          <p>支援內建麥克風、AirPods、有線耳機及任何 USB-C / Lightning 音訊配件。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📐</div>
+        <div class="feat-body">
+          <h3>直式 / 橫式輸出</h3>
+          <p>依需求選擇橫式（YouTube 16:9）或直式（Reels / TikTok 9:16）匯出格式。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">✏️</div>
+        <div class="feat-body">
+          <h3>時間軸剪輯</h3>
+          <p>錄製後可對每個片段重新錄音、剪掉頭尾、調整片段順序，不需額外剪輯軟體。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📱</div>
+        <div class="feat-body">
+          <h3>提詞機模式</h3>
+          <p>在錄製時開啟提詞機，逐字顯示講稿，讓你的表達更流暢自然，不再需要背稿。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🖊</div>
+        <div class="feat-body">
+          <h3>簡報筆支援</h3>
+          <p>任何 Bluetooth HID 簡報筆皆可控制翻頁，在台上自由移動，不必手動點螢幕。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📁</div>
+        <div class="feat-body">
+          <h3>影片管理 &amp; 匯出</h3>
+          <p>所有錄製影片集中管理，可直接分享、存入相簿，或匯出到其他 App。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">使用方式</div>
+      <h2>三步驟開始錄製</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>匯入 PDF 簡報</h3>
+          <p>點擊首頁的「開啟 PDF」，從 Files App、iCloud Drive 或 AirDrop 選取你的簡報檔案。SlideCast 會自動渲染每一頁，並在頁數多時顯示載入進度。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>設定鏡頭、音訊與版面</h3>
+          <p>選擇前置或後置鏡頭、麥克風來源，以及講師子畫面的大小與位置。可選擇橫式或直式輸出，即時預覽最終畫面。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>錄製 → 匯出 → 分享</h3>
+          <p>點下錄製按鈕開始，翻頁用手指滑或搭配簡報筆。錄完後選擇片段進行剪輯，最後一鍵匯出影片並儲存到相簿。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="section" id="privacy">
+  <div class="container">
+    <div class="privacy-box">
+      <div class="shield">🔒</div>
+      <h2>完全本地運算，零上傳</h2>
+      <p>SlideCast 不蒐集任何個人資料，不連接網路，不追蹤使用行為。你的簡報內容和錄製影片永遠留在你的裝置上。</p>
+      <div class="privacy-badges">
+        <div class="pbadge">✅ 資料不蒐集</div>
+        <div class="pbadge">✅ 無第三方追蹤</div>
+        <div class="pbadge">✅ 無網路傳輸</div>
+        <div class="pbadge">✅ 無廣告</div>
+        <div class="pbadge">✅ 影片存本機相簿</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORT -->
+<section class="section" id="support" style="background: #fff;">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">支援</div>
+      <h2>需要幫助？</h2>
+    </div>
+    <div class="support-grid">
+      <div class="support-card">
+        <h3>📖 常見問題</h3>
+        <p><strong>Q: 支援哪些 PDF 格式？</strong><br>所有標準 PDF 均支援，包含嵌入圖片與向量圖形。</p>
+        <p style="margin-top:12px;"><strong>Q: 可以使用後置鏡頭嗎？</strong><br>可以，在錄製設定中切換前/後置鏡頭。</p>
+        <p style="margin-top:12px;"><strong>Q: 影片會上傳到雲端嗎？</strong><br>不會，所有影片只存在你的裝置相簿，SlideCast 不連網。</p>
+        <p style="margin-top:12px;"><strong>Q: iPad 版和 iPhone 版功能一樣嗎？</strong><br>是，SlideCast 在 iPhone 與 iPad 上功能完全相同。</p>
+      </div>
+      <div class="support-card">
+        <h3>✉️ 聯絡我們</h3>
+        <p>如有問題、功能建議或錯誤回報，歡迎來信，我們通常在 1-2 個工作天內回覆。</p>
+        <div class="contact-email">slidecast.app@gmail.com</div>
+        <p style="margin-top:20px;color:var(--muted);font-size:0.88em;">
+          也歡迎在 App Store 留下評價，每一則回饋都能幫助 SlideCast 變得更好。
+        </p>
+        <div style="margin-top:16px;">
+          <a href="privacy-zh.html" style="color:var(--teal);font-size:0.9em;">隱私權政策 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section style="background: linear-gradient(135deg, #0a1020, #0f3460); padding: 64px 20px; text-align: center; color: #fff;">
+  <div class="container">
+    <h2 style="font-size: clamp(1.5em, 3vw, 2.2em); margin-bottom: 12px;">立即開始錄製你的第一堂課</h2>
+    <p style="opacity: 0.8; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto;">
+      免費下載，iPhone &amp; iPad 通用。
+    </p>
+    <a class="btn-primary" href="https://apps.apple.com/app/slidecast/id0000000000" target="_blank">
+      ⬇ 在 App Store 下載
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="slidecast.html">SlideCast</a>
+    <a href="slidecast-en.html">English</a>
+    <a href="privacy-zh.html">隱私權政策</a>
+    <a href="index.html">ReVision</a>
+  </div>
+  <p>© 2025 SlideCast. Made with ♥ in Taiwan.</p>
+</footer>
+
+</body>
+</html>
